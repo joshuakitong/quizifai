@@ -10,6 +10,7 @@ function QuizGenerator() {
 
   const textareaRef = useRef(null);
   const optionsRef = useRef(null);
+  const optionsButtonRef = useRef(null);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -46,7 +47,12 @@ function QuizGenerator() {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (optionsRef.current && !optionsRef.current.contains(event.target)) {
+      if (
+        optionsRef.current &&
+        !optionsRef.current.contains(event.target) &&
+        optionsButtonRef.current &&
+        !optionsButtonRef.current.contains(event.target)
+      ) {
         setShowOptions(false);
       }
     };
@@ -106,6 +112,7 @@ function QuizGenerator() {
         <div className="relative flex flex-row items-end gap-2 bg-[#303030] rounded-4xl p-3 transition-all duration-300">
           {/* Plus button */}
           <button
+            ref={optionsButtonRef}
             title="More Options"
             type="button"
             onClick={() => setShowOptions((prev) => !prev)}
