@@ -1,8 +1,18 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import NavBar from "./components/NavBar";
+import GenerateQuiz from "./components/QuizGenerator";
+
 function App() {
   return (
-    <div className="h-screen w-screen flex items-center justify-center">
-      <h1 className="text-5xl font-bold text-yellow-300">QuizifAI</h1>
-    </div>
+    <Router>
+      <div className="flex">
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<GenerateQuiz />} />
+          <Route path="/quizzes" element={<div className="ml-16 p-8 text-white">My Quizzes Page (coming soon)</div>} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
