@@ -9,6 +9,7 @@ function QuizGenerator() {
   const [showOptions, setShowOptions] = useState(false);
 
   const textareaRef = useRef(null);
+  const optionsRef = useRef(null);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -44,6 +45,28 @@ function QuizGenerator() {
   };
 
   useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (optionsRef.current && !optionsRef.current.contains(event.target)) {
+        setShowOptions(false);
+      }
+    };
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setShowOptions(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
+
+  useEffect(() => {
     if (textareaRef.current) {
       const textarea = textareaRef.current;
       const screenWidth = window.innerWidth;
@@ -66,7 +89,6 @@ function QuizGenerator() {
       }
     }
   }, [topic]);
-
 
   return (
     <div className="ml-16 w-full h-screen flex flex-col items-center justify-center text-white px-2">
@@ -92,7 +114,7 @@ function QuizGenerator() {
             <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
 
-          {/* Textarea with thumbnail inside */}
+          {/* Textarea / file preview */}
           <div className="relative flex-1 w-full flex flex-col justify-end">
             {file ? (
               <div className="flex items-center justify-between bg-[#5a5a5a] rounded-full px-3 py-1 sm:py-2 max-h-[42px] max-w-[160px] sm:max-w-[540px]">
@@ -127,12 +149,14 @@ function QuizGenerator() {
             <Sparkle className="w-4 h-4 sm:w-5 sm:h-5 transition" />
           </button>
 
-          {/* Options menu (absolute above textarea) */}
+          {/* Options menu */}
           {showOptions && (
             <div
+              ref={optionsRef}
               className={`absolute bottom-full mb-2 left-0 w-72 bg-[#303030] rounded-4xl shadow-2xl p-4 flex flex-col gap-4 z-50 origin-bottom-left transition-all duration-300
                 ${showOptions ? "scale-80 sm:scale-100 pointer-events-auto" : "scale-0 pointer-events-none"}
-              `}>
+              `}
+            >
               {/* File upload */}
               <div>
                 <label
