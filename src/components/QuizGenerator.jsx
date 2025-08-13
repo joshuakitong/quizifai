@@ -4,8 +4,8 @@ import { Plus, Minus, Sparkle, X } from "lucide-react";
 function QuizGenerator() {
   const [topic, setTopic] = useState("");
   const [file, setFile] = useState(null);
-  const [numQuestions, setNumQuestions] = useState(10);
-  const [difficulty, setDifficulty] = useState("easy");
+  const [numQuestions, setNumQuestions] = useState(20);
+  const [difficulty, setDifficulty] = useState("medium");
   const [showOptions, setShowOptions] = useState(false);
 
   const textareaRef = useRef(null);
