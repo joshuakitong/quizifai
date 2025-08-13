@@ -97,10 +97,10 @@ function QuizGenerator() {
   }, [topic]);
 
   return (
-    <div className="ml-16 w-full h-screen flex flex-col items-center justify-center text-white px-2">
-      <div className="text-center mb-12">
+    <div className="ml-16 w-full h-screen flex flex-col justify-between items-center text-white px-2 py-8">
+      <div className="flex flex-col items-center justify-center flex-1">
         <h1 className="text-5xl font-bold text-yellow-300 mb-4">QuizifAI</h1>
-        <p className="text-white text-lg max-w-lg">
+        <p className="text-white text-lg max-w-lg text-center">
           Create AI-generated multiple-choice quizzes from any topic or your notes to review and prepare for exams.
         </p>
       </div>
