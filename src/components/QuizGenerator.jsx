@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Plus, Minus, Sparkle, X } from "lucide-react";
+import { generateQuiz } from "../api/quizApi";
 
 function QuizGenerator() {
   const [topic, setTopic] = useState("");
@@ -36,15 +37,19 @@ function QuizGenerator() {
     setTopic(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!topic && !file) {
-      alert("Please provide a topic or upload a file.");
-      return;
+    if (!topic && !file) return alert("Please provide a topic.");
+
+    try {
+      const quiz = await generateQuiz(topic, numQuestions, difficulty);
+      console.log(quiz);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to generate quiz.");
     }
-    console.log({ topic, file, numQuestions, difficulty });
-    alert("Quiz generation will be implemented soon!");
   };
+
 
   useEffect(() => {
     const handleClickOutside = (event) => {
