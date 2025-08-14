@@ -142,7 +142,7 @@ function QuizGenerator() {
                 value={topic}
                 onChange={handleTopicChange}
                 placeholder="Enter topic or notes..."
-                className="w-full resize-none bg-transparent outline-none text-xs sm:text-base text-white px-2 pt-0 sm:pt-3 leading-[12px] sm:leading-[16px] h-[22px] sm:h-[42px] max-h-[200px] scrollbar-custom"
+                className="w-full resize-none bg-transparent outline-none text-xs sm:text-base text-white px-2 pt-0 sm:pt-3 leading-[14px] sm:leading-[16px] h-[22px] sm:h-[42px] max-h-[200px] scrollbar-custom"
               />
             )}
           </div>
