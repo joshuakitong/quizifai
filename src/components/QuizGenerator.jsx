@@ -21,6 +21,7 @@ function QuizGenerator() {
         selectedFile.type.includes("officedocument"))
     ) {
       setFile(selectedFile);
+      setTopic("");
       setShowOptions(false);
     } else {
       alert("Only PDF or DOC/DOCX files are allowed.");
