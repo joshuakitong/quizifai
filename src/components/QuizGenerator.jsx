@@ -151,7 +151,12 @@ function QuizGenerator() {
           <button
             title="Generate Quiz"
             type="submit"
-            className="p-2 sm:p-3 bg-yellow-300 rounded-full text-black hover:bg-yellow-300 transition-all cursor-pointer"
+            disabled={!topic && !file}
+            className={`p-2 sm:p-3 rounded-full text-black transition-all bg-yellow-300 hover:bg-yellow-300 ${
+              !topic && !file
+                ? "opacity-50 cursor-default"
+                : "cursor-pointer"
+            }`}
           >
             <Sparkle className="w-4 h-4 sm:w-5 sm:h-5 transition" />
           </button>
@@ -189,7 +194,7 @@ function QuizGenerator() {
                     type="button"
                     disabled={numQuestions <= 10}
                     onClick={() => setNumQuestions((prev) => prev - 10)}
-                    className={`p-1 rounded-full bg-[#242424] hover:bg-yellow-400 hover:text-black disabled:hover:bg-[#242424] disabled:hover:text-white disabled:hover:cursor-not-allowed transition-colors cursor-pointer ${
+                    className={`p-1 rounded-full bg-[#242424] hover:bg-yellow-400 hover:text-black disabled:hover:bg-[#242424] disabled:hover:text-white disabled:hover:cursor-default transition-colors cursor-pointer ${
                       numQuestions <= 10 ? "opacity-50" : ""
                     }`}
                   >
@@ -200,7 +205,7 @@ function QuizGenerator() {
                     type="button"
                     disabled={numQuestions >= 50}
                     onClick={() => setNumQuestions((prev) => prev + 10)}
-                    className={`p-1 rounded-full bg-[#242424] hover:bg-yellow-400 hover:text-black disabled:hover:bg-[#242424] disabled:hover:text-white disabled:hover:cursor-not-allowed transition-colors cursor-pointer ${
+                    className={`p-1 rounded-full bg-[#242424] hover:bg-yellow-400 hover:text-black disabled:hover:bg-[#242424] disabled:hover:text-white disabled:hover:cursor-default transition-colors cursor-pointer ${
                       numQuestions >= 50 ? "opacity-50" : ""
                     }`}
                   >
