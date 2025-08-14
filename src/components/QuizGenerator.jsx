@@ -130,14 +130,14 @@ function QuizGenerator() {
           {/* Textarea / file preview */}
           <div className="relative flex-1 w-full flex flex-col justify-end">
             {file ? (
-              <div className="flex items-center justify-between bg-[#5a5a5a] rounded-full px-3 py-1 sm:py-2 max-h-[42px] max-w-[160px] sm:max-w-[540px]">
-                <span className="truncate max-w-full text-sm leading-none flex items-center py-1 sm:py-2">
+              <div className="flex items-center bg-[#5a5a5a] rounded-full px-3 py-1 sm:py-2 w-fit max-w-[160px] sm:max-w-[540px]">
+                <span className="truncate min-w-0 text-sm py-1 sm:py-1">
                   {file.name}
                 </span>
                 <button
                   type="button"
                   onClick={handleRemoveFile}
-                  className="text-white cursor-pointer flex items-center justify-center"
+                  className="text-white cursor-pointer flex items-center justify-center shrink-0"
                 >
                   <X size={16} />
                 </button>
