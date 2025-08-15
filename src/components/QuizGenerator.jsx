@@ -6,8 +6,8 @@ import mammoth from "mammoth";
 function QuizGenerator() {
   const [topic, setTopic] = useState("");
   const [file, setFile] = useState(null);
-  const [numQuestions, setNumQuestions] = useState(20);
-  const [difficulty, setDifficulty] = useState("medium");
+  const [numQuestions, setNumQuestions] = useState(10);
+  const [difficulty, setDifficulty] = useState("easy");
   const [showOptions, setShowOptions] = useState(false);
 
   const textareaRef = useRef(null);
