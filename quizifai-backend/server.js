@@ -21,14 +21,19 @@ app.post("/generate-quiz", async (req, res) => {
 
   try {
     const prompt = `Create a ${numQuestions || 20}-question multiple choice quiz on the topic "${topic}" with difficulty "${difficulty || "medium"}".
-    Format the response as a valid JSON array ONLY, like this example:
-    [
+      Return the response as a JSON object with the following structure:
       {
-        "question": "What is the first letter of the alphabet?",
-        "options": ["A", "B", "Y", "Z"],
-        "answer": "A"
+        "title": "A short title for the quiz",
+        "summary": "A brief 2–3 sentence summary describing the quiz",
+        "questions": [
+          {
+            "question": "Example question?",
+            "options": ["Option 1", "Option 2", "Option 3", "Option 4"],
+            "answer": "Correct Option"
+          }
+        ]
       }
-    ]`;
+      Make sure the response is only valid JSON with no extra text, explanations, or formatting outside the JSON object.`;
 
     const result = await model.generateContent(prompt);
     const textResponse = result?.response?.candidates?.[0]?.content?.parts?.[0]?.text || "";
