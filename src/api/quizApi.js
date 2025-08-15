@@ -1,5 +1,5 @@
 export async function generateQuiz(topic, numQuestions, difficulty) {
-  const FIREBASE_FUNCTION_URL = "http://localhost:5001/quizifai-f62d4/us-central1/api/generate-quiz";
+  const FIREBASE_FUNCTION_URL = "https://us-central1-quizifai-f62d4.cloudfunctions.net/api/generate-quiz";
 
   const res = await fetch(FIREBASE_FUNCTION_URL, {
     method: "POST",
