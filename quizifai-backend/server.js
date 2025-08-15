@@ -9,6 +9,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("API is working!");
+});
+
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-002" });
 
@@ -41,7 +45,7 @@ app.post("/generate-quiz", async (req, res) => {
     if (!textResponse) {
       throw new Error("No content returned from Gemini");
     }
-    
+
     const cleanedResponse = textResponse.replace(/```json|```/g, "").trim();
 
     let quizData;
@@ -51,7 +55,7 @@ app.post("/generate-quiz", async (req, res) => {
       console.error("JSON parse error:", parseError);
       return res.status(500).json({
         error: "Failed to parse Gemini response as JSON",
-        raw: cleanedResponse, // return cleaned version for debugging
+        raw: cleanedResponse,
       });
     }
 
@@ -62,5 +66,5 @@ app.post("/generate-quiz", async (req, res) => {
   }
 });
 
-const PORT = 5000;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
