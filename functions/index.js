@@ -1,20 +1,21 @@
+import * as functions from "firebase-functions";
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import dotenv from "dotenv";
 
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: true }));
 app.use(express.json());
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-002" });
 
 app.get("/", (req, res) => {
   res.send("API is working!");
 });
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-002" });
 
 app.post("/generate-quiz", async (req, res) => {
   const { topic, numQuestions, difficulty } = req.body;
@@ -25,19 +26,19 @@ app.post("/generate-quiz", async (req, res) => {
 
   try {
     const prompt = `Create a ${numQuestions || 20}-question multiple choice quiz on the topic "${topic}" with difficulty "${difficulty || "medium"}".
-      Return the response as a JSON object with the following structure:
-      {
-        "title": "A short title for the quiz",
-        "summary": "A brief 2–3 sentence summary describing the quiz",
-        "questions": [
-          {
-            "question": "Example question?",
-            "options": ["Option 1", "Option 2", "Option 3", "Option 4"],
-            "answer": "Correct Option"
-          }
-        ]
-      }
-      Make sure the response is only valid JSON with no extra text, explanations, or formatting outside the JSON object.`;
+Return the response as a JSON object with:
+{
+  "title": "A short title for the quiz",
+  "summary": "A brief 2–3 sentence summary describing the quiz",
+  "questions": [
+    {
+      "question": "Example question?",
+      "options": ["Option 1", "Option 2", "Option 3", "Option 4"],
+      "answer": "Correct Option"
+    }
+  ]
+}
+Only return JSON with no extra text or formatting.`;
 
     const result = await model.generateContent(prompt);
     const textResponse = result?.response?.candidates?.[0]?.content?.parts?.[0]?.text || "";
@@ -66,5 +67,4 @@ app.post("/generate-quiz", async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+export const api = functions.https.onRequest(app);

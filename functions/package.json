@@ -1,6 +1,9 @@
 {
   "name": "quizifai-backend",
   "version": "1.0.0",
+  "engines": {
+    "node": "22"
+  },
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
@@ -14,10 +17,8 @@
     "@google/generative-ai": "^0.24.1",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "firebase-functions": "^6.4.0"
   },
-  "type": "module",
-  "devDependencies": {
-    "nodemon": "^3.1.10"
-  }
+  "type": "module"
 }
