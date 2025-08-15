@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Plus, Minus, Sparkle, X } from "lucide-react";
 import { generateQuiz } from "../api/quizApi";
+import mammoth from "mammoth";
 
 function QuizGenerator() {
   const [topic, setTopic] = useState("");
@@ -15,21 +16,52 @@ function QuizGenerator() {
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
+    if (!selectedFile) return;
+
+    const allowedTypes = [
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "text/plain",
+    ];
+
+    if (!allowedTypes.includes(selectedFile.type)) {
+      alert("Only .doc, .docx, and .txt files are allowed.");
+      return;
+    }
+
+    setFile(selectedFile);
+    setShowOptions(false);
+
     if (
-      selectedFile &&
-      (selectedFile.type === "application/pdf" ||
-        selectedFile.type.includes("msword") ||
-        selectedFile.type.includes("officedocument"))
+      selectedFile.type.includes("msword") ||
+      selectedFile.type.includes("officedocument")
     ) {
-      setFile(selectedFile);
-      setTopic("");
-      setShowOptions(false);
-    } else {
-      alert("Only PDF or DOC/DOCX files are allowed.");
+      extractDocxText(selectedFile);
+    } else if (selectedFile.type === "text/plain") {
+      extractTxtText(selectedFile);
     }
   };
 
+  const extractDocxText = (file) => {
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const arrayBuffer = event.target.result;
+      const result = await mammoth.extractRawText({ arrayBuffer });
+      setTopic(result.value);
+    };
+    reader.readAsArrayBuffer(file);
+  };
+
+  const extractTxtText = (file) => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      setTopic(event.target.result);
+    };
+    reader.readAsText(file);
+  };
+
   const handleRemoveFile = () => {
+    setTopic("");
     setFile(null);
   };
 
@@ -49,7 +81,6 @@ function QuizGenerator() {
       alert("Failed to generate quiz.");
     }
   };
-
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -181,12 +212,12 @@ function QuizGenerator() {
                   htmlFor="file-upload"
                   className="inline-block w-full px-4 py-2 bg-[#242424] text-white rounded-full hover:bg-yellow-400 hover:text-black cursor-pointer transition-colors"
                 >
-                  Add .pdf, .doc, .docx file
+                  Add .doc, .docx, .txt file
                 </label>
                 <input
                   id="file-upload"
                   type="file"
-                  accept=".pdf,.doc,.docx"
+                  accept=".doc,.docx,.txt"
                   onChange={handleFileChange}
                   className="hidden"
                 />
