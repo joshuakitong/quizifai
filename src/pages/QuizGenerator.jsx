@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Plus, Minus, Sparkle, X } from "lucide-react";
 import { generateQuiz } from "../api/quizApi";
 import mammoth from "mammoth";
@@ -13,6 +14,8 @@ function QuizGenerator() {
   const textareaRef = useRef(null);
   const optionsRef = useRef(null);
   const optionsButtonRef = useRef(null);
+
+  const navigate = useNavigate();
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -75,7 +78,7 @@ function QuizGenerator() {
 
     try {
       const quiz = await generateQuiz(topic, numQuestions, difficulty);
-      console.log(quiz);
+      navigate("/quiz", { state: { quiz } });
     } catch (err) {
       console.error(err);
       alert("Failed to generate quiz.");
@@ -189,7 +192,7 @@ function QuizGenerator() {
             title="Generate Quiz"
             type="submit"
             disabled={!topic && !file}
-            className={`p-2 sm:p-3 rounded-full text-black transition-all bg-yellow-300 hover:bg-yellow-300 ${
+            className={`p-2 sm:p-3 rounded-full text-black transition-all bg-yellow-300 hover:bg-yellow-400 disabled:hover:bg-yellow-300 ${
               !topic && !file
                 ? "opacity-50 cursor-default"
                 : "cursor-pointer"
