@@ -74,7 +74,8 @@ function QuizPage() {
         </button>
       </div>
 
-      <p className="mb-6 text-gray-300 text-center">{quiz.summary || "No summary provided."}</p>
+      <p className="mb-2 text-gray-300 text-center">{quiz.summary || "No summary provided."}</p>
+      <p className="mb-6 text-xs text-gray-500 text-center">{"(" + quiz.numQuestions + " Questions/" + quiz.difficulty + ")"}</p>
 
       {mode === "initial" && (
         <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
