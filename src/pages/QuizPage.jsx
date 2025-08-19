@@ -9,6 +9,14 @@ function QuizPage() {
 
   const [mode, setMode] = useState("initial");
   const [answers, setAnswers] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const questionsPerPage = 5;
+  const totalPages = quiz ? Math.ceil(quiz.questions.length / questionsPerPage) : 0;
+
+  const startIndex = (currentPage - 1) * questionsPerPage;
+  const endIndex = startIndex + questionsPerPage;
+  const currentQuestions = quiz ? quiz.questions.slice(startIndex, endIndex) : [];
 
   if (!quiz) {
     return (
@@ -36,11 +44,19 @@ function QuizPage() {
     alert("Quiz submitted! Check console for answers.");
   };
 
+  const handleNext = () => {
+    if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
+  };
+
+  const handleBack = () => {
+    if (currentPage > 1) setCurrentPage((prev) => prev - 1);
+  };
+
   return (
     <div className="text-white pl-20 sm:pl-0 p-4 max-w-3xl mx-auto">
       <div className="flex items-center justify-between mb-4">
         <button
-          onClick={() => navigate("/")}
+          onClick={mode === "initial" ? () => navigate("/") : () => setMode("initial")}
           className="group p-2 rounded-full hover:bg-[#303030] transition duration-300 cursor-pointer"
           title="Back"
         >
@@ -90,12 +106,6 @@ function QuizPage() {
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
             <button
-              onClick={() => setMode("initial")}
-              className="w-full sm:w-36 bg-gray-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-gray-400"
-            >
-              Back
-            </button>
-            <button
               onClick={() => setMode("take")}
               className="w-full sm:w-36 bg-yellow-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-yellow-400"
             >
@@ -108,18 +118,21 @@ function QuizPage() {
       {mode === "take" && (
         <div className="text-left">
           <h2 className="text-2xl font-bold mb-4">Take Quiz</h2>
-          {quiz.questions.map((q, index) => (
-            <div key={index} className="mb-6">
+
+          {currentQuestions.map((q, index) => (
+            <div key={startIndex + index} className="mb-6">
               <h3 className="text-lg font-semibold">
-                {index + 1}. {q.question}
+                {startIndex + index + 1}. {q.question}
               </h3>
               <ul className="mt-2 grid grid-cols-2 gap-4">
                 {q.options.map((option, i) => (
                   <li
                     key={i}
-                    onClick={() => handleSelect(index, option)}
+                    onClick={() => handleSelect(startIndex + index, option)}
                     className={`border border-gray-300/30 rounded-3xl px-4 py-2 cursor-pointer flex items-center justify-center text-center hover:border-yellow-300 transition duration-300 ${
-                      answers[index] === option ? "bg-yellow-300/10 border-yellow-300" : ""
+                      answers[startIndex + index] === option
+                        ? "bg-yellow-300/10 border-yellow-300"
+                        : ""
                     }`}
                   >
                     {option}
@@ -129,19 +142,34 @@ function QuizPage() {
             </div>
           ))}
 
-          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
+          <div className="flex items-center justify-between mt-6">
             <button
-              onClick={() => setMode("initial")}
-              className="w-full sm:w-36 bg-gray-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-gray-400"
+              onClick={handleBack}
+              disabled={currentPage === 1}
+              className={`bg-gray-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-gray-400 disabled:opacity-50 disabled:hover:bg-gray-300 disabled:cursor-not-allowed`}
             >
               Back
             </button>
-            <button
-              onClick={handleSubmit}
-              className="w-full sm:w-36 bg-yellow-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-yellow-400"
-            >
-              Submit
-            </button>
+
+            <span className="text-lg font-semibold">
+              {currentPage} / {totalPages}
+            </span>
+
+            {currentPage === totalPages ? (
+              <button
+                onClick={handleSubmit}
+                className="bg-yellow-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-yellow-400"
+              >
+                Submit
+              </button>
+            ) : (
+              <button
+                onClick={handleNext}
+                className="bg-gray-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-gray-400"
+              >
+                Next
+              </button>
+            )}
           </div>
         </div>
       )}
