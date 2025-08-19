@@ -10,6 +10,7 @@ function QuizPage() {
   const [mode, setMode] = useState("initial");
   const [answers, setAnswers] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
+  const [score, setScore] = useState(0);
 
   const questionsPerPage = 5;
   const totalPages = quiz ? Math.ceil(quiz.questions.length / questionsPerPage) : 0;
@@ -40,8 +41,16 @@ function QuizPage() {
   };
 
   const handleSubmit = () => {
-    console.log("User Answers:", answers);
-    alert("Quiz submitted! Check console for answers.");
+    let correctCount = 0;
+
+    quiz.questions.forEach((q, index) => {
+      if (answers[index] === q.answer) {
+        correctCount++;
+      }
+    });
+
+    setScore(correctCount);
+    setMode("results");
   };
 
   const handleNext = () => {
@@ -174,6 +183,60 @@ function QuizPage() {
                 Next
               </button>
             )}
+          </div>
+        </div>
+      )}
+
+      {mode === "results" && (
+        <div className="text-left">
+          <h2 className="text-2xl font-bold mb-4">Quiz Results</h2>
+          <p className="text-xl font-semibold mb-6 text-center">
+            Score: {score} / {quiz.questions.length}
+          </p>
+
+          {quiz.questions.map((q, index) => {
+            const userAnswer = answers[index];
+            const isCorrect = userAnswer === q.answer;
+
+            return (
+              <div key={index} className="mb-6">
+                <h3 className="text-lg font-semibold flex items-center">
+                  {isCorrect ? "✔️" : "❌"} {index + 1}. {q.question}
+                </h3>
+                <ul className="mt-2 grid grid-cols-2 gap-4">
+                  {q.options.map((option, i) => {
+                    let classes =
+                      "border rounded-3xl px-4 py-2 flex items-center justify-center text-center";
+
+                    if (option === userAnswer) {
+                      classes += " bg-yellow-300/10";
+                      if (isCorrect) {
+                        classes += " border-green-500";
+                      } else {
+                        classes += " border-red-500";
+                      }
+                    } else if (!isCorrect && option === q.answer) {
+                      classes += " border-green-300";
+                    }
+
+                    return (
+                      <li key={i} className={classes}>
+                        {option}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            );
+          })}
+
+          <div className="flex justify-center mt-6">
+            <button
+              onClick={() => navigate("/")}
+              className="bg-gray-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-gray-400"
+            >
+              Back to Home
+            </button>
           </div>
         </div>
       )}
