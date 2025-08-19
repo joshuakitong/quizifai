@@ -64,13 +64,13 @@ function QuizPage() {
         <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
           <button
             onClick={() => setMode("view")}
-            className="w-full sm:w-auto bg-gray-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-gray-400"
+            className="w-full sm:w-36 bg-gray-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-gray-400"
           >
             View
           </button>
           <button
             onClick={() => setMode("take")}
-            className="w-full sm:w-auto bg-yellow-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-yellow-400"
+            className="w-full sm:w-36 bg-yellow-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-yellow-400"
           >
             Take
           </button>
@@ -91,13 +91,13 @@ function QuizPage() {
           <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
             <button
               onClick={() => setMode("initial")}
-              className="w-full sm:w-auto bg-gray-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-gray-400"
+              className="w-full sm:w-36 bg-gray-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-gray-400"
             >
               Back
             </button>
             <button
               onClick={() => setMode("take")}
-              className="w-full sm:w-auto bg-yellow-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-yellow-400"
+              className="w-full sm:w-36 bg-yellow-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-yellow-400"
             >
               Take
             </button>
@@ -118,7 +118,7 @@ function QuizPage() {
                   <li
                     key={i}
                     onClick={() => handleSelect(index, option)}
-                    className={`border border-gray-300/30 rounded-3xl px-4 py-2 cursor-pointer text-center hover:border-yellow-300 transition duration-300 ${
+                    className={`border border-gray-300/30 rounded-3xl px-4 py-2 cursor-pointer flex items-center justify-center text-center hover:border-yellow-300 transition duration-300 ${
                       answers[index] === option ? "bg-yellow-300/10 border-yellow-300" : ""
                     }`}
                   >
@@ -132,13 +132,13 @@ function QuizPage() {
           <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
             <button
               onClick={() => setMode("initial")}
-              className="w-full sm:w-auto bg-gray-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-gray-400"
+              className="w-full sm:w-36 bg-gray-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-gray-400"
             >
               Back
             </button>
             <button
               onClick={handleSubmit}
-              className="w-full sm:w-auto bg-yellow-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-yellow-400"
+              className="w-full sm:w-36 bg-yellow-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-yellow-400"
             >
               Submit
             </button>
