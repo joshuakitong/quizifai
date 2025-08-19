@@ -59,11 +59,13 @@ Only return JSON with no extra text or formatting.`;
         raw: cleanedResponse,
       });
     }
-    
+
     res.json({
-      quiz: quizData,
-      numQuestions: numQuestions,
-      difficulty: difficulty
+      quiz: {
+        ...quizData,
+        numQuestions: numQuestions || 10,
+        difficulty: difficulty || "easy"
+      }
     });
   } catch (error) {
     console.error("Error generating quiz:", error.message);
