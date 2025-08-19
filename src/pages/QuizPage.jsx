@@ -85,7 +85,10 @@ function QuizPage() {
             Preview
           </button>
           <button
-            onClick={() => setMode("take")}
+            onClick={() => {
+              setMode("take");
+              setCurrentPage(1);
+            }}
             className="w-full sm:w-36 bg-yellow-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-yellow-400"
           >
             Take Quiz
