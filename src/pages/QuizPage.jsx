@@ -16,7 +16,7 @@ function QuizPage() {
         <p>No quiz data found.</p>
         <button
           onClick={() => navigate("/")}
-          className="bg-gray-500 text-black px-4 py-2 rounded-full mt-4"
+          className="w-full sm:w-36 bg-gray-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-gray-400"
         >
           Go Back
         </button>
