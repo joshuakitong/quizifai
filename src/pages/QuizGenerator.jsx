@@ -8,7 +8,7 @@ function QuizGenerator() {
   const [topic, setTopic] = useState("");
   const [file, setFile] = useState(null);
   const [numQuestions, setNumQuestions] = useState(10);
-  const [difficulty, setDifficulty] = useState("easy");
+  const [difficulty, setDifficulty] = useState("Easy");
   const [showOptions, setShowOptions] = useState(false);
 
   const textareaRef = useRef(null);
@@ -258,7 +258,7 @@ function QuizGenerator() {
               <div className="flex items-center gap-3">
                 <label className="text-sm">Difficulty:</label>
                 <div className="flex gap-2">
-                  {["easy", "medium", "hard"].map((level) => (
+                  {["Easy", "Medium", "Hard"].map((level) => (
                     <button
                       key={level}
                       type="button"
@@ -269,7 +269,7 @@ function QuizGenerator() {
                           : "bg-[#242424] text-white hover:bg-yellow-400 hover:text-black transition-colors cursor-pointer"
                       }`}
                     >
-                      {level === "easy" ? "Easy" : level === "medium" ? "Med" : "Hard"}
+                      {level === "Easy" ? "Easy" : level === "Medium" ? "Med" : "Hard"}
                     </button>
                   ))}
                 </div>
