@@ -79,21 +79,21 @@ function QuizPage() {
       {mode === "initial" && (
         <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
           <button
-            onClick={() => setMode("view")}
+            onClick={() => setMode("preview")}
             className="w-full sm:w-36 bg-gray-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-gray-400"
           >
-            View
+            Preview
           </button>
           <button
             onClick={() => setMode("take")}
             className="w-full sm:w-36 bg-yellow-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-yellow-400"
           >
-            Take
+            Take Quiz
           </button>
         </div>
       )}
 
-      {mode === "view" && (
+      {mode === "preview" && (
         <div className="text-left">
           <h2 className="text-2xl font-bold mb-4">Preview Quiz</h2>
           {quiz.questions.map((q, index) => (
@@ -109,7 +109,7 @@ function QuizPage() {
               onClick={() => setMode("take")}
               className="w-full sm:w-36 bg-yellow-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-yellow-400"
             >
-              Take
+              Take Quiz
             </button>
           </div>
         </div>
@@ -160,7 +160,7 @@ function QuizPage() {
                 onClick={handleSubmit}
                 className="bg-yellow-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-yellow-400"
               >
-                Submit
+                Submit Quiz
               </button>
             ) : (
               <button
