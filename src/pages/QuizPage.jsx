@@ -106,12 +106,12 @@ function QuizPage() {
               <h3 className="text-lg font-semibold">
                 {index + 1}. {q.question}
               </h3>
-              <ul className="mt-2">
+              <ul className="mt-2 grid grid-cols-2 gap-4">
                 {q.options.map((option, i) => (
                   <li
                     key={i}
                     onClick={() => handleSelect(index, option)}
-                    className={`border border-gray-300/30 rounded-3xl px-4 py-2 mb-2 cursor-pointer hover:border-yellow-300 transition duration-300 ${
+                    className={`border border-gray-300/30 rounded-3xl px-4 py-2 cursor-pointer text-center hover:border-yellow-300 transition duration-300 ${
                       answers[index] === option ? "bg-yellow-300/10 border-yellow-300" : ""
                     }`}
                   >
