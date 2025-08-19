@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Save } from "lucide-react";
+import { Save, ArrowLeft } from "lucide-react";
 
 function QuizPage() {
   const location = useLocation();
@@ -37,33 +37,40 @@ function QuizPage() {
   };
 
   return (
-    <div className="text-white pl-20 sm:pl-0 p-4 max-w-3xl mx-auto text-center">
-      <div className="flex items-center justify-center mb-4">
-        <h1 className="text-3xl font-bold">{quiz.title || "Your Quiz"}</h1>
+    <div className="text-white pl-20 sm:pl-0 p-4 max-w-3xl mx-auto">
+      <div className="flex items-center justify-between mb-4">
         <button
-          className="group ml-2 p-2 rounded-full hover:bg-yellow-300 transition duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent"
+          onClick={() => navigate("/")}
+          className="group p-2 rounded-full hover:bg-[#303030] transition duration-300 cursor-pointer"
+          title="Back"
+        >
+          <ArrowLeft className="w-5 h-5 text-white" />
+        </button>
+
+        <h1 className="text-3xl font-bold text-center flex-1">{quiz.title || "Your Quiz"}</h1>
+
+        <button
+          className="group p-2 rounded-full hover:bg-yellow-300 transition duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent"
           title="Save Quiz (Feature Coming Soon)"
           disabled
         >
-          <Save className="w-5 h-5 text-yellow-300 enabled:group-hover:text-black disabled:group-hover:text-yellow-300 transition duration-300" disabled />
+          <Save className="w-5 h-5 text-yellow-300 enabled:group-hover:text-black disabled:group-hover:text-yellow-300 transition duration-300" />
         </button>
       </div>
 
-      <p className="mb-6 text-gray-300">
-        {quiz.summary || "No summary provided."}
-      </p>
+      <p className="mb-6 text-gray-300 text-center">{quiz.summary || "No summary provided."}</p>
 
       {mode === "initial" && (
-        <div className="flex justify-between mb-6">
+        <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
           <button
-            onClick={() => navigate("/")}
-            className="bg-gray-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-gray-400"
+            onClick={() => setMode("view")}
+            className="w-full sm:w-auto bg-gray-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-gray-400"
           >
-            Back
+            View
           </button>
           <button
             onClick={() => setMode("take")}
-            className="bg-yellow-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-yellow-400"
+            className="w-full sm:w-auto bg-yellow-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-yellow-400"
           >
             Take
           </button>
@@ -81,16 +88,16 @@ function QuizPage() {
             </div>
           ))}
 
-          <div className="flex justify-between mt-6">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
             <button
               onClick={() => setMode("initial")}
-              className="bg-gray-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-gray-400"
+              className="w-full sm:w-auto bg-gray-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-gray-400"
             >
               Back
             </button>
             <button
               onClick={() => setMode("take")}
-              className="bg-yellow-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-yellow-400"
+              className="w-full sm:w-auto bg-yellow-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-yellow-400"
             >
               Take
             </button>
@@ -122,16 +129,16 @@ function QuizPage() {
             </div>
           ))}
 
-          <div className="flex justify-between mt-6">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
             <button
               onClick={() => setMode("initial")}
-              className="bg-gray-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-gray-400"
+              className="w-full sm:w-auto bg-gray-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-gray-400"
             >
               Back
             </button>
             <button
               onClick={handleSubmit}
-              className="bg-yellow-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-yellow-400"
+              className="w-full sm:w-auto bg-yellow-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-yellow-400"
             >
               Submit
             </button>
