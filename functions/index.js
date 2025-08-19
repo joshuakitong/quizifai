@@ -25,7 +25,7 @@ app.post("/generate-quiz", async (req, res) => {
   }
 
   try {
-    const prompt = `Create a ${numQuestions || 20}-question multiple choice quiz on the topic "${topic}" with difficulty "${difficulty || "medium"}".
+    const prompt = `Create a ${numQuestions || 10}-question multiple choice quiz on the topic "${topic}" with difficulty "${difficulty || "easy"}".
 Return the response as a JSON object with:
 {
   "title": "A short title for the quiz",
@@ -59,7 +59,7 @@ Only return JSON with no extra text or formatting.`;
         raw: cleanedResponse,
       });
     }
-
+    
     res.json({
       quiz: quizData,
       numQuestions: numQuestions,
