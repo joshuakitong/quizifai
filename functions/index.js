@@ -60,7 +60,11 @@ Only return JSON with no extra text or formatting.`;
       });
     }
 
-    res.json({ quiz: quizData });
+    res.json({
+      quiz: quizData,
+      numQuestions: numQuestions,
+      difficulty: difficulty
+    });
   } catch (error) {
     console.error("Error generating quiz:", error.message);
     res.status(500).json({ error: "Failed to generate quiz", details: error.message });
