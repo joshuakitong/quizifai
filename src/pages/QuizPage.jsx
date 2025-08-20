@@ -209,14 +209,13 @@ function QuizPage() {
                       "border rounded-3xl px-4 py-2 flex items-center justify-center text-center";
 
                     if (option === userAnswer) {
-                      classes += " bg-yellow-300/10";
                       if (isCorrect) {
-                        classes += " border-green-500";
+                        classes += " border-green-500 bg-green-500/10";
                       } else {
-                        classes += " border-red-500";
+                        classes += " border-yellow-300 bg-yellow-300/10";
                       }
                     } else if (!isCorrect && option === q.answer) {
-                      classes += " border-green-300";
+                      classes += " border-green-500 bg-green-500/10";
                     }
 
                     return (
