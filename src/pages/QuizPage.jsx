@@ -232,7 +232,7 @@ function QuizPage() {
           <div className="flex justify-center mt-6">
             <button
               onClick={() => navigate("/")}
-              className="bg-gray-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-gray-400"
+              className="w-full sm:w-36 bg-gray-300 text-black px-6 py-2 rounded-full cursor-pointer transition duration-300 hover:bg-gray-400"
             >
               Back to Home
             </button>
