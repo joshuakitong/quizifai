@@ -116,7 +116,7 @@ function QuizGenerator() {
     if (textareaRef.current) {
       const textarea = textareaRef.current;
       const screenWidth = window.innerWidth;
-      const baseHeight = screenWidth < 640 ? 22 : 42;
+      const baseHeight = screenWidth < 640 ? 24 : 34;
 
       textarea.style.height = `${baseHeight}px`;
 
@@ -182,7 +182,7 @@ function QuizGenerator() {
                 value={topic}
                 onChange={handleTopicChange}
                 placeholder="Enter topic or notes..."
-                className="w-full resize-none bg-transparent outline-none text-xs sm:text-base text-white px-2 pt-0 sm:pt-3 leading-[14px] sm:leading-[16px] h-[22px] sm:h-[42px] max-h-[200px] scrollbar-custom"
+                className="w-full resize-none bg-transparent outline-none text-xs sm:text-base text-white px-2 h-[24px] sm:h-[34px] max-h-[200px] scrollbar-custom"
               />
             )}
           </div>
