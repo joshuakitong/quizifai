@@ -10,6 +10,7 @@ function QuizGenerator() {
   const [numQuestions, setNumQuestions] = useState(10);
   const [difficulty, setDifficulty] = useState("Easy");
   const [showOptions, setShowOptions] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const textareaRef = useRef(null);
   const optionsRef = useRef(null);
@@ -76,12 +77,16 @@ function QuizGenerator() {
     e.preventDefault();
     if (!topic && !file) return alert("Please provide a topic.");
 
+    setLoading(true);
+
     try {
       const quiz = await generateQuiz(topic, numQuestions, difficulty);
       navigate("/quiz", { state: { quiz } });
     } catch (err) {
       console.error(err);
       alert("Failed to generate quiz.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -191,14 +196,16 @@ function QuizGenerator() {
           <button
             title="Generate Quiz"
             type="submit"
-            disabled={!topic && !file}
+            disabled={!topic && !file || loading}
             className={`p-2 m-0 sm:m-1 rounded-full text-black transition-all bg-yellow-300 hover:bg-yellow-400 disabled:hover:bg-yellow-300 ${
-              !topic && !file
-                ? "opacity-50 cursor-default"
-                : "cursor-pointer"
+              (!topic && !file) || loading ? "opacity-50 cursor-default" : "cursor-pointer"
             }`}
           >
-            <Sparkle className="w-4 h-4 sm:w-5 sm:h-5 transition" />
+            {loading ? (
+              <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+            ) : (
+              <Sparkle className="w-4 h-4 sm:w-5 sm:h-5 transition" />
+            )}
           </button>
 
           {/* Options menu */}
