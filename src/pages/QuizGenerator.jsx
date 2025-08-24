@@ -149,7 +149,7 @@ function QuizGenerator() {
         onSubmit={handleSubmit}
         className="w-full max-w-2xl flex flex-col gap-4"
       >
-        <div className="relative flex flex-row items-end gap-2 bg-[#303030] rounded-4xl p-3 transition-all duration-300">
+        <div className="relative flex flex-row items-end gap-2 bg-[#303030] rounded-4xl p-2 shadow-md transition-all duration-300">
           {/* Plus button */}
           <button
             ref={optionsButtonRef}
