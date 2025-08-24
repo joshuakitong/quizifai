@@ -156,7 +156,7 @@ function QuizGenerator() {
             title="More Options"
             type="button"
             onClick={() => setShowOptions((prev) => !prev)}
-            className="p-2 sm:p-3 bg-[#303030] rounded-full hover:bg-[#5a5a5a] transition-colors cursor-pointer"
+            className="p-2 m-0 sm:m-1 bg-[#303030] rounded-full hover:bg-[#5a5a5a] transition-colors cursor-pointer"
           >
             <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
@@ -192,7 +192,7 @@ function QuizGenerator() {
             title="Generate Quiz"
             type="submit"
             disabled={!topic && !file}
-            className={`p-2 sm:p-3 rounded-full text-black transition-all bg-yellow-300 hover:bg-yellow-400 disabled:hover:bg-yellow-300 ${
+            className={`p-2 m-0 sm:m-1 rounded-full text-black transition-all bg-yellow-300 hover:bg-yellow-400 disabled:hover:bg-yellow-300 ${
               !topic && !file
                 ? "opacity-50 cursor-default"
                 : "cursor-pointer"
