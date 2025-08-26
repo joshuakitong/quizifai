@@ -1,6 +1,6 @@
 # QuizifAI
 
-This is an AI quiz generator built with **React**, **Vite**, **Tailwind CSS**, **GSAP**, **Node.js**, **Express.js**, the **Gemini API**, and **MongoDB**, featuring an interactive form wizard, AI-generated workout plans, and persistent user data with Firestore.
+This is an AI quiz generator built with **React**, **Vite**, **Tailwind CSS**, **GSAP**, **Node.js**, **Express.js**, the **Gemini API**, and **Firebase**, featuring AI-generated quizzes, and persistent user data.
 
 <details>
   <summary><strong>How to Run Locally</strong></summary>
