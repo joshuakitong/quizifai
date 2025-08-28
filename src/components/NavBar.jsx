@@ -206,9 +206,9 @@ function AnimatedLoginButton({ isExpanded, user, loginWithGoogle, logoutUser }) 
       ) : (
         <button
           onClick={loginWithGoogle}
-          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md w-full"
+          className="bg-white hover:bg-gray-100 text-black px-4 py-2 rounded-full shadow-md w-full cursor-pointer transition duration-300"
         >
-          Login
+          Login with Google
         </button>
       )}
     </div>
