@@ -89,7 +89,10 @@ function AnimatedNavLink({ btn, active, isExpanded }) {
     if (isExpanded && textRef.current) {
       gsap.fromTo(
         textRef.current,
-        { opacity: 0, x: -10 },
+        {
+          opacity: 0,
+          x: -10
+        },
         {
           opacity: 1,
           x: 0,
@@ -133,11 +136,19 @@ function AnimatedLoginButton({ isExpanded, user, loginWithGoogle, logoutUser }) 
     if (isExpanded) {
       gsap.fromTo(
         btnRef.current,
-        { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, duration: 0.3, delay: 0.1, ease: "power2.out" }
+        {
+          opacity: 0,
+          y: 50
+        },
+        { opacity: 1,
+          y: 0,
+          duration: 0.3,
+          delay: 0.15,
+          ease: "power2.out"
+        }
       );
     } else {
-      gsap.to(btnRef.current, { opacity: 0, duration: 0.15 });
+      gsap.to(btnRef.current, { opacity: 0, duration: 0.1 });
     }
   }, [isExpanded]);
 
