@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Menu, Sparkle, FileText } from "lucide-react";
+import { Menu, Sparkle, FileText, LogOut } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { gsap } from "gsap";
 import { auth } from "../../firebase";
@@ -126,8 +126,8 @@ function AnimatedNavLink({ btn, active, isExpanded }) {
 
 function AnimatedLoginButton({ isExpanded, user, loginWithGoogle, logoutUser }) {
   const btnRef = useRef(null);
-  const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   useEffect(() => {
     if (!btnRef.current) return;
@@ -153,6 +153,12 @@ function AnimatedLoginButton({ isExpanded, user, loginWithGoogle, logoutUser }) 
   }, [isExpanded]);
 
   useEffect(() => {
+    if (!isExpanded) {
+      setShowDropdown(false);
+    }
+  }, [isExpanded]);
+  
+  useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setShowDropdown(false);
@@ -174,14 +180,16 @@ function AnimatedLoginButton({ isExpanded, user, loginWithGoogle, logoutUser }) 
     <div ref={btnRef} className="opacity-0 relative">
       {user ? (
         <div
-          className="flex items-center cursor-pointer relative"
+          className={`flex items-center cursor-pointer relative p-2 rounded-full transition duration-300 ${
+            !showDropdown ? "hover:bg-[#303030]" : ""
+          }`}
           ref={dropdownRef}
+          onClick={() => setShowDropdown(!showDropdown)}
         >
           <img
             src={user.photoURL}
             alt="Profile"
-            className="w-10 h-10 rounded-full"
-            onClick={() => setShowDropdown(!showDropdown)}
+            className="w-8 h-8 rounded-full"
           />
 
           {isExpanded && (
@@ -193,12 +201,13 @@ function AnimatedLoginButton({ isExpanded, user, loginWithGoogle, logoutUser }) 
           )}
 
           {showDropdown && (
-            <div className="absolute bottom-12 left-0 bg-[#242424] text-white p-2 rounded-lg shadow-md w-32 z-50">
+            <div className="absolute bottom-14 left-0 bg-[#242424] text-white rounded-full shadow-md w-full z-50">
               <button
                 onClick={logoutUser}
-                className="w-full text-left px-2 py-1 hover:bg-[#303030] rounded"
+                className="flex items-center gap-2 w-full text-left px-3 py-2 hover:bg-[#303030] rounded-full cursor-pointer"
               >
-                Logout
+                <LogOut size={16} />
+                <span>Logout</span>
               </button>
             </div>
           )}
